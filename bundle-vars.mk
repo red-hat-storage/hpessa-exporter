@@ -3,7 +3,7 @@ VERSION ?= 0.2
 
 # Image URL to use all building/pushing image targets
 IMAGE_REGISTRY ?= quay.io
-REGISTRY_NAMESPACE ?= ssharon
+REGISTRY_NAMESPACE ?= ocs-dev
 IMAGE_NAME ?= hpessa-exporter
 IMAGE_TAG ?= latest
 

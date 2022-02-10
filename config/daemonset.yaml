@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: hpessa-exporter
-          image: "quay.io/ssharon/hpessa-exporter:latest"
+          image: "quay.io/ocs-dev/hpessa-exporter:latest"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
