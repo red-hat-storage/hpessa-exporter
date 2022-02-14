@@ -6,16 +6,7 @@ local storage devices as [Prometheus](https://prometheus.io) metrics, by using
 HPE Smart Storage Administrator tool. Those metrics (device status, temperature 
 etc.) may hint administrators on potential up-coming failures.
 
-
-## Prerequisites
-- Install [RedHat's Openshift](https://www.redhat.com/en/openshift-4) (4.9+)
-- Install [HPE Smart Storage Administrator](https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c04455150) 
-  on local host machines. Ensure that the **ssacli** is installed on one of the
-  following locations:
-	- `/usr/sbin/ssacli`
-	- `/opt/smartstorageadmin/ssacli/bin/ssacli`
-	- `/opt/hp/ssacli/bld/ssacli`
-
+Requires [RedHat's Openshift](https://www.redhat.com/en/openshift-4) (4.9+)
 
 ## Deployment
 
@@ -24,6 +15,13 @@ Apply the following configuration:
 ```
 $ oc apply -f https://raw.githubusercontent.com/red-hat-storage/hpessa-exporter/main/deploy/hpessa-exporter.yaml
 ```
+
+Or deploy directly from this repository:
+
+```
+oc apply -f deply/hpessa-exporter.yaml
+```
+
 
 Expect the following resources to be created:
 
@@ -74,6 +72,4 @@ hpessa_ssa_physical_device_temp_maxi{bay="1",box="2",dev="/dev/sdb",id="physical
 ```
 
 
-You may also yse the deployment yaml directly from this repository:
 
-```oc apply -f deply/hpessa-exporter.yaml```

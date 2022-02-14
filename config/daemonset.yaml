@@ -24,13 +24,13 @@ spec:
     spec:
       containers:
         - name: hpessa-exporter
-          image: "quay.io/ocs-dev/hpessa-exporter:latest"
+          image: hpessa-exporter:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
               name: metrics
               protocol: TCP
-          command: ["/hpessa-exporter"]
+          command: ["/bin/hpessa-exporter"]
           args: ["--port=8080"]
           resources:
             requests:
@@ -48,14 +48,6 @@ spec:
             - mountPath: /host/dev
               mountPropagation: HostToContainer
               name: dev
-              readOnly: true
-            - mountPath: /opt
-              mountPropagation: HostToContainer
-              name: opt
-              readOnly: true
-            - mountPath: /lib64
-              mountPropagation: HostToContainer
-              name: lib64
               readOnly: true
           env:
             - name: HOST_IP
@@ -86,12 +78,6 @@ spec:
         - hostPath:
             path: /dev
           name: dev
-        - hostPath:
-            path: /opt
-          name: opt
-        - hostPath:
-            path: /lib64
-          name: lib64
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 10%

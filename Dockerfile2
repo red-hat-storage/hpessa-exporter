@@ -22,10 +22,19 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=$ARCH \
   go build -a -o /opt/app-root/src/hpessa-exporter \
   -ldflags="-s -w $GOVARS" cmd/main.go
 
+# extra rpms 
+RUN curl \
+  https://downloads.linux.hpe.com/sdr/repo/mcp/centos/8/x86_64/current/ssacli-5.10-44.0.x86_64.rpm \
+  --output /opt/app-root/src/ssacli-5.10-44.0.x86_64.rpm
+
 # image
-FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+WORKDIR /opt/app-root/src
+FROM registry.access.redhat.com/ubi8/ubi:latest
 COPY --from=builder /opt/app-root/src/hpessa-exporter /bin
-USER 65532:65532
+
+COPY --from=builder /opt/app-root/src/ssacli-5.10-44.0.x86_64.rpm ./ssacli-5.10-44.0.x86_64.rpm
+RUN yum install -y ./ssacli-5.10-44.0.x86_64.rpm
+RUN rm -f ./ssacli-5.10-44.0.x86_64.rpm
 
 ENTRYPOINT ["/bin/sh"]
 EXPOSE 8080

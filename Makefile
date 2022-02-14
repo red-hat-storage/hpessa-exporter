@@ -210,7 +210,7 @@ $(GOLANGCI_LINT):
 image: build-tools image-build image-push ## Build and push container image
 
 .PHONY: image-build
-image-build: Dockerfile ## Build and tag container image
+image-build: Dockerfile2 ## Build and tag container image
 	$(Q)$(call report, $@)
 	$(Q)$(DOCKERCMD) build -t $(IMG) -f $< \
 		--build-arg ARCH=$(GOARCH) \
