@@ -115,7 +115,17 @@ func RunSsaShowConfig() (*SsaConfigInfo, error) {
 	if err != nil {
 		return nil, err
 	}
+	if ssaHasNoControllers(out) {
+		// One of possible special cases:
+		//   The driver for the installed controller(s) is not loaded
+		//   The scsi_generic (sg) driver module is not loaded
+		return &SsaConfigInfo{}, nil
+	}
 	return ParseSsaShowConfig(out)
+}
+
+func ssaHasNoControllers(dat string) bool {
+	return strings.Contains(dat, "Error: No controllers detected")
 }
 
 func executeSsaCommand(args ...string) (string, error) {
